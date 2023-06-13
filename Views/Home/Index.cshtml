@@ -1,8 +1,35 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <div>
+        <div>
+            <h1>Welcome to Churn</h1>
+            <p>Compare and aggregate various financial credit products to find the best options for your needs.</p>
+            <p>Discover a wide range of credit cards, loans, and other financial products with competitive rates and features all in one place.</p>
+            <a href="/Categories/Index">Explore Products</a>
+        </div>
+        <div>
+            <img src="/images/financial-products.jpg" alt="Financial Products" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <h2>Compare Credit Cards</h2>
+            <p>Find the right credit card that suits your lifestyle and spending habits. Compare features, rewards, interest rates, and annual fees to make an informed decision.</p>
+            <a href="/creditcards" class="btn btn-secondary">View Credit Cards</a>
+        </div>
+        <div class="col-md-4">
+            <h2>Explore Loans</h2>
+            <p>Get access to affordable loans with flexible terms and repayment options. Compare loan amounts, interest rates, and loan durations to find the best fit for your financial goals.</p>
+            <a href="/loans" class="btn btn-secondary">View Loans</a>
+        </div>
+        <div class="col-md-4">
+            <h2>Manage Your Finances</h2>
+            <p>Learn valuable tips and strategies for managing your finances effectively. Access resources and tools to track your expenses, create budgets, and improve your financial well-being.</p>
+            <a href="/financemanagement" class="btn btn-secondary">Get Started</a>
+        </div>
+    </div>
 </div>
