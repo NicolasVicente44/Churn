@@ -36,10 +36,10 @@ body {
 }
 
 
-.nav-link{
+.nav-link {
     text-decoration: none;
     transition: color 0.3s ease;
-    color:rebeccapurple
+    color: #49BEB7;
 }
 
 
@@ -51,7 +51,7 @@ body {
     font-weight: bold;
     font-size: 2em;
     padding-right: 2em;
-    margin-left:1em;
+    margin-left:0.5em;
 }
 
 
@@ -85,8 +85,6 @@ body {
 .nav-link:hover {
     color: lightgray;
 }
-
-
  
 
 .dropdown-menu a.dropdown-item {
@@ -101,5 +99,42 @@ body {
 .container {
     display: flex;
     justify-content: center;
-    padding:20em;
+}
+
+
+/*home page styles*/
+
+.index-btn {
+    background-color: white;
+    padding: 0.7em;
+    border-radius: 1em;
+    text-decoration: none;
+    border: #49beb7 solid 2px;
+    transition: opacity 0.8s;
+    transition: color 0.2s;
+    font-size: 1.1em;
+    transition: background-color 1.2s;
+}
+
+.index-btn:hover {
+    background-color: #085f63;
+    padding: 0.7em;
+    text-decoration: none;
+    border: black solid 2px;
+    color: white;
+    opacity: 0.8;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.index-btn {
+    animation: fade-in 0.8s;
 }

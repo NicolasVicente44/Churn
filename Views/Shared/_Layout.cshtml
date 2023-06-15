@@ -4,14 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Churn - @ViewData["Title"]</title>
-    <link rel="icon" href="/images/CreditIcon.ico" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="~/Images/churn-website-favicon-color.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Churn.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="shared-header">
-        @await Component.InvokeAsync("NavigationMenu");
+    <header>
+        @await Component.InvokeAsync("NavigationMenu")
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -22,7 +22,7 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - Churn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+        </div><img src="c:\Users\nicol\OneDrive\Desktop\GEORGIAN SEMESTER 3\Server-Side Scripting-ASP.NET\churn-website-favicon-color.png" />
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

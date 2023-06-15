@@ -48,30 +48,4 @@ button.accept-policy {
 }
 
 
-/* Custom styles for the navigation menu */
-.navbar-nav {
-    display: flex;
-    justify-content: center;
-}
-s
-.nav-item {
-    margin-right: 10px;
-}
-
-.nav-link {
-    color: #333;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-    .nav-link:hover {
-        color: #ff0000;
-    }
-
-.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
 
