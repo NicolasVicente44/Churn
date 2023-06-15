@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Churn.styles.css" asp-append-version="true" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .site-content {
+            flex: 1 0 auto;
+        }
+
+        .footer {
+            flex-shrink: 0;
+        }
+    </style>
+
 </head>
 <body>
     <header>
@@ -17,13 +33,41 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <footer class="border-top footer text-muted">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Company</h5>
+                    <ul class="footer-list">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Products</h5>
+                    <ul class="footer-list">
+                        <li><a href="#">Financial Solutions</a></li>
+                        <li><a href="#">Credit Cards</a></li>
+                        <li><a href="#">Loans</a></li>
+                        <li><a href="#">Savings Accounts</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Resources</h5>
+                    <ul class="footer-list">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p>&copy; 2023 - Churn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Churn - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div><img src="c:\Users\nicol\OneDrive\Desktop\GEORGIAN SEMESTER 3\Server-Side Scripting-ASP.NET\churn-website-favicon-color.png" />
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
