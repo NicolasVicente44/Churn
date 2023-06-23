@@ -10,87 +10,87 @@ using Churn.Models;
 
 namespace Churn.Controllers
 {
-    public class CategoriesController : Controller
+    public class InvestmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CategoriesController(ApplicationDbContext context)
+        public InvestmentsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Investments
         public async Task<IActionResult> Index()
         {
-              return _context.Category != null ? 
-                          View(await _context.Category.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Category'  is null.");
+              return _context.Investments != null ? 
+                          View(await _context.Investments.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Investments'  is null.");
         }
 
-        // GET: Categories/Details/5
+        // GET: Investments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Investments == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
+            var investment = await _context.Investments
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (investment == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(investment);
         }
 
-        // GET: Categories/Create
+        // GET: Investments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Investments/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Icon")] Category category)
+        public async Task<IActionResult> Create([Bind("InvestmentType,MinimumInvestmentAmount,ExpectedReturnRate,InvestmentTerm,Id,Name,Description")] Investment investment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(investment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(investment);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Investments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Investments == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var investment = await _context.Investments.FindAsync(id);
+            if (investment == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(investment);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Investments/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Icon")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("InvestmentType,MinimumInvestmentAmount,ExpectedReturnRate,InvestmentTerm,Id,Name,Description")] Investment investment)
         {
-            if (id != category.Id)
+            if (id != investment.Id)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace Churn.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(investment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!InvestmentExists(investment.Id))
                     {
                         return NotFound();
                     }
@@ -115,49 +115,49 @@ namespace Churn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(investment);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Investments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Category == null)
+            if (id == null || _context.Investments == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Category
+            var investment = await _context.Investments
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (investment == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(investment);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Investments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Category == null)
+            if (_context.Investments == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Category'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Investments'  is null.");
             }
-            var category = await _context.Category.FindAsync(id);
-            if (category != null)
+            var investment = await _context.Investments.FindAsync(id);
+            if (investment != null)
             {
-                _context.Category.Remove(category);
+                _context.Investments.Remove(investment);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool InvestmentExists(int id)
         {
-          return (_context.Category?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Investments?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

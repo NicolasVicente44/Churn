@@ -10,90 +10,87 @@ using Churn.Models;
 
 namespace Churn.Controllers
 {
-    public class ProductsController : Controller
+    public class MortgagesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public MortgagesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Mortgages
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Product.Include(p => p.Category);
-            return View(await applicationDbContext.ToListAsync());
+              return _context.Mortgages != null ? 
+                          View(await _context.Mortgages.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Mortgages'  is null.");
         }
 
-        // GET: Products/Details/5
+        // GET: Mortgages/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Mortgages == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Category)
+            var mortgage = await _context.Mortgages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (mortgage == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(mortgage);
         }
 
-        // GET: Products/Create
+        // GET: Mortgages/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Mortgages/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryId,Name,Description,InterestRate,TermLength,Photo")] Product product)
+        public async Task<IActionResult> Create([Bind("InterestRate,MortgageAmount,MortgageTermYears,DownPayment,Id,Name,Description")] Mortgage mortgage)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(mortgage);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(mortgage);
         }
 
-        // GET: Products/Edit/5
+        // GET: Mortgages/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Mortgages == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var mortgage = await _context.Mortgages.FindAsync(id);
+            if (mortgage == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(mortgage);
         }
 
-        // POST: Products/Edit/5
+        // POST: Mortgages/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryId,Name,Description,InterestRate,TermLength,Photo")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("InterestRate,MortgageAmount,MortgageTermYears,DownPayment,Id,Name,Description")] Mortgage mortgage)
         {
-            if (id != product.Id)
+            if (id != mortgage.Id)
             {
                 return NotFound();
             }
@@ -102,12 +99,12 @@ namespace Churn.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(mortgage);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!MortgageExists(mortgage.Id))
                     {
                         return NotFound();
                     }
@@ -118,51 +115,49 @@ namespace Churn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(mortgage);
         }
 
-        // GET: Products/Delete/5
+        // GET: Mortgages/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Mortgages == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Category)
+            var mortgage = await _context.Mortgages
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (mortgage == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(mortgage);
         }
 
-        // POST: Products/Delete/5
+        // POST: Mortgages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Product == null)
+            if (_context.Mortgages == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Mortgages'  is null.");
             }
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
+            var mortgage = await _context.Mortgages.FindAsync(id);
+            if (mortgage != null)
             {
-                _context.Product.Remove(product);
+                _context.Mortgages.Remove(mortgage);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool MortgageExists(int id)
         {
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Mortgages?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

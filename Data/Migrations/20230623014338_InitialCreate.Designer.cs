@@ -12,41 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Churn.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230601193320_add-migration InitalCreate")]
-    partial class addmigrationInitalCreate
+    [Migration("20230623014338_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.16")
+                .HasAnnotation("ProductVersion", "6.0.18")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Churn.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Category");
-                });
 
             modelBuilder.Entity("Churn.Models.Product", b =>
                 {
@@ -56,30 +32,23 @@ namespace Churn.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("InterestRate")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TermLength")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.ToTable("Products");
 
-                    b.ToTable("Product");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -284,15 +253,105 @@ namespace Churn.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Churn.Models.Product", b =>
+            modelBuilder.Entity("Churn.Models.Account", b =>
                 {
-                    b.HasOne("Churn.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasBaseType("Churn.Models.Product");
 
-                    b.Navigation("Category");
+                    b.Property<string>("AccountType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("float")
+                        .HasColumnName("Account_InterestRate");
+
+                    b.Property<decimal>("MaximumWithdrawalLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MinimumBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasDiscriminator().HasValue("Account");
+                });
+
+            modelBuilder.Entity("Churn.Models.CreditCard", b =>
+                {
+                    b.HasBaseType("Churn.Models.Product");
+
+                    b.Property<decimal>("AnnualFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("BalanceTransferAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("float")
+                        .HasColumnName("CreditCard_InterestRate");
+
+                    b.Property<double>("MinimumPaymentAmount")
+                        .HasColumnType("float");
+
+                    b.HasDiscriminator().HasValue("CreditCard");
+                });
+
+            modelBuilder.Entity("Churn.Models.Investment", b =>
+                {
+                    b.HasBaseType("Churn.Models.Product");
+
+                    b.Property<double>("ExpectedReturnRate")
+                        .HasColumnType("float");
+
+                    b.Property<int>("InvestmentTerm")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InvestmentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("MinimumInvestmentAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasDiscriminator().HasValue("Investment");
+                });
+
+            modelBuilder.Entity("Churn.Models.Loan", b =>
+                {
+                    b.HasBaseType("Churn.Models.Product");
+
+                    b.Property<string>("Collateral")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("float")
+                        .HasColumnName("Loan_InterestRate");
+
+                    b.Property<decimal>("LoanAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("LoanTermMonths")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Loan");
+                });
+
+            modelBuilder.Entity("Churn.Models.Mortgage", b =>
+                {
+                    b.HasBaseType("Churn.Models.Product");
+
+                    b.Property<decimal>("DownPayment")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("float");
+
+                    b.Property<decimal>("MortgageAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("MortgageTermYears")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Mortgage");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -344,11 +403,6 @@ namespace Churn.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Churn.Models.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
