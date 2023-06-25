@@ -28,7 +28,7 @@ html {
 .nav-link {
     text-decoration: none;
     transition: color 0.3s ease;
-    color: black;
+    color: lightgray;
 }
 
 
@@ -418,7 +418,7 @@ hr {
 
 
 
-/*category CRUD styling*/
+/* CRUD styling*/
 
 
 .wrapper-categories {
@@ -429,3 +429,46 @@ hr {
     flex-direction: column;
     margin: 0 auto;
 }
+
+
+
+#crud-banner {
+    background-color: #49beb7;
+}
+
+
+/*login page styling */
+.login-container {
+    margin-top: 3em
+}
+
+#login-submit {
+    background-color: #49beb7;
+    color: white;
+}
+
+#login-submit:hover {
+    background-color: #808080;
+    color: white;
+}
+
+
+
+/*register view styles*/
+
+.register-container {
+    margin-top: 50px;
+}
+
+#registerSubmit {
+    color: white;
+    background-color: #49beb7;
+    border: none;
+}
+
+#registerSubmit:hover {
+    color: white;
+    background-color: #808080;
+}
+
+
