@@ -5,11 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<hr />
-<div class="row">
+<div class="row justify-content-center">
+
+
+
     <div class="col-md-4">
+        <h1 class="row justify-content-center">@ViewData["Title"]</h1>
+
+        <hr />
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -43,16 +47,18 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button id="login-submit" type="submit" class="btn btn-lg" style="display: flex; margin: 1em auto;">Create</button>
             </div>
         </form>
+        <div>
+            <a class="row justify-content-center" asp-action="Index">Back to List</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

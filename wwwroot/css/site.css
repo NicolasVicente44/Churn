@@ -171,6 +171,14 @@ a {
 
 
 
+@media screen and (max-width: 600px) {
+    .testimonial-section {
+        font-size: 0.6em
+    }
+}
+
+
+
 .carousel-control-prev-icon {
     margin-right: 10px;
 }
@@ -367,6 +375,10 @@ a {
 
 
 /* CRUD styling*/
+
+
+
+
 
 
 .wrapper-categories {
