@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
 
+
     
 
 </head>
@@ -25,6 +26,54 @@
         <main role="main" class="pb-3">
             @RenderBody()
 
+
+            <footer class="container py-5" style="margin-top: 5em;">
+                <hr>
+
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <img src="~/Images/churn-website-favicon-color.png" height="60px" width="70px" />
+                        <small class="d-block mb-3 text-muted">© 2023 - 2024</small>
+
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Resources</h5>
+                        <ul class="list-unstyled text-small">
+                            <li ><a id="footer-li"  href="#">Social Media</a></li>
+                            <li><a id="footer-li" href="#">Support</a></li>
+                            <li><a id="footer-li" href="#">Contact</a></li>
+                            <li><a id="footer-li" href="#">Stuff for developers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Top Partners</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a id="footer-li" href="#">TD Bank</a></li>
+                            <li><a id="footer-li" href="#">RBC</a></li>
+                            <li><a id="footer-li" href="#">Scotia Bank</a></li>
+                            <li><a id="footer-li" href="#">BMO</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Resources</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a id="footer-li" href="#">Business</a></li>
+                            <li><a id="footer-li" href="#">Education</a></li>
+                            <li><a id="footer-li" href="#">Government</a></li>
+                            <li><a id="footer-li" href="#">ESG</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>About</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a id="footer-li" href="#">Team</a></li>
+                            <li><a id="footer-li" href="#">Locations</a></li>
+                            <li><a id="footer-li" href="#">Privacy</a></li>
+                            <li><a id="footer-li" href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
         </main>
      
       
@@ -38,6 +87,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mixitup/dist/mixitup.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

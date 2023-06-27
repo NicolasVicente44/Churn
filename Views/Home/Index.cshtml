@@ -1,10 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
+﻿@{
+    ViewData["Title"] = "Home";
+}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet" />
-</head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        hr {
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+    </style>
+
 <body>
+
 
     <div id="home-page-wrapper">
         <div id="home-first-wrapper">
@@ -15,6 +22,7 @@
             </div>
         </div>
 
+
         <div>
             <div class="hero-section">
                 <h2>Compare Financial Products</h2>
@@ -22,24 +30,46 @@
                 <a href="Identity/Account/Register" class="cta-button">Get Started</a>
             </div>
 
-            <div class="features-section">
-                <div class="feature">
-                    <h3>Wide Range of Products</h3>
-                    <p>Explore a diverse selection of financial products, including accounts, credit cards, loans, and more.</p>
-                </div>
 
-                <div class="feature">
-                    <h3>Easy Comparison</h3>
-                    <p>Effortlessly compare the features, rates, and terms of various financial products to find the best fit for your needs.</p>
-                </div>
 
-                <div class="feature">
-                    <h3>Transparent Information</h3>
-                    <p>We provide clear and concise details about each product, ensuring transparency and empowering your decision-making.</p>
+            <div>
+                <hr class="home-hr">
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Boost Your Credit and Expand Your Capital</h2>
+                        <p class="lead">Explore a diverse selection of financial products, including accounts, credit cards, loans, and more. Clearly compare and contrast benefits and features from a variety of lenders for products that best suit you.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 300px; height: 260px;" src="~/Images/business-credit-score.png">
+                    </div>
                 </div>
+                <hr class="home-hr">
+                <div class="row featurette">
+                    <div class="col-md-7 order-md-2">
+                        <h2 class="featurette-heading">Easy Comparison</h2>
+                        <p class="lead">Effortlessly compare the features, rates, and terms of various financial products to find the best fit for your needs. Shop from different providers all in one place just a few clicks away.</p>
+                    </div>
+                    <div class="col-md-5 order-md-1">
+                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 300px; height: 260px; margin-bottom: 1em;" src="~/Images/compare.png">
+                    </div>
+                </div>
+                <hr class="home-hr">
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Transparent Information</h2>
+                        <p class="lead">We provide clear and concise details about each product, ensuring transparency and empowering your decision-making. No need to directly talk to any lenders or visit any banks, get what you need to know without the hassle.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 300px; height: 260px;" src="~/Images/shopping-cart.png">
+                    </div>
+                </div>
+                <hr class="home-hr">
             </div>
         </div>
     </div>
+
+
+
 
 
     <div class="testimonial-section">
@@ -89,12 +119,9 @@
             </a>
         </div>
     </div>
-
     @section Scripts {
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     }
-
 </body>
 </html>
