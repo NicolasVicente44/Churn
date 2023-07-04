@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Churn.Models;
 
 namespace Churn.Models
 {
@@ -14,6 +15,9 @@ namespace Churn.Models
         [Display(Name = "Product Description")]
         public string? Description { get; set; }
 
-       
+        [Display(Name = "Image File Name")]
+        public string? ImageFileName { get; set; }
+        public List<CartItem>? CartItems { get; set; }
+
     }
 }

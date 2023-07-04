@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Churn.Models;
+using Churn.Models;
 
 namespace Churn.Data
 {
@@ -14,7 +15,11 @@ namespace Churn.Data
             public DbSet<Loan>? Loans { get; set; }
             public DbSet<Account>? Accounts { get; set; }
             public DbSet<Investment>? Investments { get; set; }
-       
+            public DbSet<Cart> Carts { get; set; }
+            public DbSet<CartItem> CartItems { get; set; }
+            public DbSet<Order> Orders { get; set; }
+
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

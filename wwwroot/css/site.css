@@ -443,3 +443,22 @@ a {
 }
 
 
+
+/* CRUD tables styling */
+.table-th {
+    padding: 2em !important;
+    margin: 2em !important;
+}
+
+#accountTable {
+    margin-top: 10em !important;
+}
+
+.tbody {
+    padding: 2em;
+}
+
+.table-data {
+    padding: 2em;
+    background: red;
+}

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="crud-banner"  class="p-4 p-md-5 mb-4 text-white rounded" style="height: 40%; width: 100%;">
+<div id="crud-banner" class="p-4 p-md-5 mb-4 text-white rounded" style="height: 40%; width: 100%;">
     <div class="col-md-10 px-0">
         <h1 class="display-4 fst-italic">
             <img src="~/Images/bank.png" height="100px" />  Accounts For All of Your Goals
@@ -17,14 +17,12 @@
 
 <h1>@ViewData["Title"]</h1>
 
-
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table" id="accountTable">
-    <thead>
-        <tr>
+<table class="table t" id="accountTable">
+    <thead class="table-borderless">
+        <tr class="alert">
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -42,6 +40,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MaximumWithdrawalLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageFileName)
             </th>
             <th></th>
         </tr>
@@ -68,7 +69,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.MaximumWithdrawalLimit)
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageFileName)
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
@@ -78,8 +81,6 @@
         }
     </tbody>
 </table>
-
-
 
 @section Scripts {
     <script>
@@ -91,7 +92,7 @@
                 "order": [],
                 "searching": true,
                 "language": {
-                 "searchPlaceholder": "Search accounts..."
+                    "searchPlaceholder": "Search accounts..."
                 },
             });
         });
