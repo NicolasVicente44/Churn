@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Churn.Models;
-using Churn.Models;
 
 namespace Churn.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
 
             public DbSet<Product>? Products { get; set; }
@@ -24,6 +23,27 @@ namespace Churn.Data
             : base(options)
         {
 
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+
+            builder.Entity<Order>()
+                .HasOne(o => o.Cart)
+                .WithMany()
+                .HasForeignKey(o => o.CartId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+                 builder.Entity<CartItem>() 
+                    .HasOne(o => o.Cart)
+                    .WithMany(o => o.CartItems)
+                    .HasForeignKey(o => o.CartId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+
+            base.OnModelCreating(builder);
         }
     }
 } 

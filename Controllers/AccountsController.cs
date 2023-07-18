@@ -58,22 +58,9 @@ namespace Churn.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (imageFile != null && imageFile.Length > 0)
+                if (imageFile != null)
                 {
-                    // Generate a unique filename
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-
-                    // Set the path where the image will be saved (you can customize this)
-                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "accounts", fileName);
-
-                    // Save the image file to the specified path
-                    using (var fileStream = new FileStream(imagePath, FileMode.Create))
-                    {
-                        await imageFile.CopyToAsync(fileStream);
-                    }
-
-                    // Set the image path in the Account object
-                    account.ImageFileName = "/Images/accounts/" + fileName;
+                    account.ImageFileName = await UploadPhoto(imageFile);
                 }
 
                 _context.Add(account);
@@ -113,32 +100,19 @@ namespace Churn.Controllers
             {
                 try
                 {
-                    if (imageFile != null && imageFile.Length > 0)
+                    if (imageFile != null)
                     {
-                        // Generate a unique filename
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-
-                        // Set the path where the image will be saved (you can customize this)
-                        string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "accounts", fileName);
-
-                        // Save the image file to the specified path
-                        using (var fileStream = new FileStream(imagePath, FileMode.Create))
-                        {
-                            await imageFile.CopyToAsync(fileStream);
-                        }
-
                         // Delete the previous image file if it exists
                         if (!string.IsNullOrEmpty(account.ImageFileName))
                         {
-                            string previousImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", account.ImageFileName.TrimStart('/'));
+                            string previousImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "accounts", account.ImageFileName);
                             if (System.IO.File.Exists(previousImagePath))
                             {
                                 System.IO.File.Delete(previousImagePath);
                             }
                         }
 
-                        // Set the new image path in the Account object
-                        account.ImageFileName = "/Images/accounts/" + fileName;
+                        account.ImageFileName = await UploadPhoto(imageFile);
                     }
 
                     _context.Update(account);
@@ -193,7 +167,7 @@ namespace Churn.Controllers
                 // Delete the associated image file if it exists
                 if (!string.IsNullOrEmpty(account.ImageFileName))
                 {
-                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", account.ImageFileName.TrimStart('/'));
+                    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "accounts", account.ImageFileName);
                     if (System.IO.File.Exists(imagePath))
                     {
                         System.IO.File.Delete(imagePath);
@@ -210,6 +184,24 @@ namespace Churn.Controllers
         private bool AccountExists(int id)
         {
             return (_context.Accounts?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private async Task<string> UploadPhoto(IFormFile photo)
+        {
+            if (photo != null && photo.Length > 0)
+            {
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(photo.FileName)}";
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "accounts", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
+
+                return fileName;
+            }
+
+            return null;
         }
     }
 }

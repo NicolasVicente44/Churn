@@ -19,5 +19,8 @@ namespace Churn.Models
         public string? ImageFileName { get; set; }
         public List<CartItem>? CartItems { get; set; }
 
+        public string? Photo { get; set; }
+
+
     }
 }

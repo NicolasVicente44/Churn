@@ -4,8 +4,8 @@ namespace Churn.Models
 {
     public class User : IdentityUser
     {
-        public List<Order>? Orders { get; set; }
+        public List<Order>? Order { get; set; }
 
-        public List<Cart>? Carts { get; set; }
+        public List<Cart>? Cart { get; set; }
     }
 }

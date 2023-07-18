@@ -48,13 +48,23 @@ namespace Churn.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            // Convert the PaymentMethods enum values into a list of SelectListItem objects
+            var paymentMethods = Enum.GetValues(typeof(PaymentMethods))
+                                     .Cast<PaymentMethods>()
+                                     .Select(m => new SelectListItem
+                                     {
+                                         Text = m.ToString(),
+                                         Value = m.ToString()
+                                     })
+                                     .ToList();
+
+            ViewData["PaymentMethods"] = paymentMethods;
             ViewData["CartId"] = new SelectList(_context.Carts, "Id", "Id");
+
             return View();
         }
 
         // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,CartId,Total,ShippinAddress,PaymentReceived,PaymentMethod")] Order order)
@@ -65,6 +75,18 @@ namespace Churn.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Repopulate the SelectList for the drop-down if the form is not valid
+            ViewData["PaymentMethods"] = Enum.GetValues(typeof(PaymentMethods))
+                                             .Cast<PaymentMethods>()
+                                             .Select(m => new SelectListItem
+                                             {
+                                                 Text = m.ToString(),
+                                                 Value = m.ToString(),
+                                                 Selected = (m == order.PaymentMethod)
+                                             })
+                                             .ToList();
+
             ViewData["CartId"] = new SelectList(_context.Carts, "Id", "Id", order.CartId);
             return View(order);
         }
@@ -82,13 +104,22 @@ namespace Churn.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["PaymentMethods"] = Enum.GetValues(typeof(PaymentMethods))
+                                             .Cast<PaymentMethods>()
+                                             .Select(m => new SelectListItem
+                                             {
+                                                 Text = m.ToString(),
+                                                 Value = m.ToString(),
+                                                 Selected = (m == order.PaymentMethod)
+                                             })
+                                             .ToList();
+
             ViewData["CartId"] = new SelectList(_context.Carts, "Id", "Id", order.CartId);
             return View(order);
         }
 
         // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CartId,Total,ShippinAddress,PaymentReceived,PaymentMethod")] Order order)
@@ -118,6 +149,18 @@ namespace Churn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // Repopulate the SelectList for the drop-down if the form is not valid
+            ViewData["PaymentMethods"] = Enum.GetValues(typeof(PaymentMethods))
+                                             .Cast<PaymentMethods>()
+                                             .Select(m => new SelectListItem
+                                             {
+                                                 Text = m.ToString(),
+                                                 Value = m.ToString(),
+                                                 Selected = (m == order.PaymentMethod)
+                                             })
+                                             .ToList();
+
             ViewData["CartId"] = new SelectList(_context.Carts, "Id", "Id", order.CartId);
             return View(order);
         }
@@ -155,14 +198,14 @@ namespace Churn.Controllers
             {
                 _context.Orders.Remove(order);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrderExists(int id)
         {
-          return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Orders?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
