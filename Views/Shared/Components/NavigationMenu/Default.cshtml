@@ -1,4 +1,5 @@
-﻿
+﻿@model List<MenuItem>
+
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-collapse bg-white border-bottom box-shadow mb-3 navbar-light">
     <div class="container-fluid">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -13,7 +14,15 @@
             <ul class="navbar-nav flex-grow-1">
                 @foreach (var menuItem in Model)
                 {
-                    if (menuItem.DropdownItems != null)
+                    if (menuItem.Authorized.GetValueOrDefault() && !User.Identity.IsAuthenticated ) continue;
+
+                    if (User.Identity.IsAuthenticated && menuItem.AllowedRoles != null && menuItem.AllowedRoles.Count > 0)
+                    {
+                        if (menuItem.AllowedRoles.Find(role => User.IsInRole(role)) == null) continue;
+                    }
+
+
+                    if (menuItem.DropdownItems != null && menuItem.DropdownItems.Any())
                     {
                         <li class="nav-item dropdown">
                             <a id="homeLinks" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,6 +32,13 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach (var dropdownItem in menuItem.DropdownItems)
                                 {
+                                    if (menuItem.Authorized.GetValueOrDefault() && !User.Identity.IsAuthenticated) continue;
+
+                                    if (User.Identity.IsAuthenticated && menuItem.AllowedRoles != null && menuItem.AllowedRoles.Count > 0)
+                                    {
+                                        if (menuItem.AllowedRoles.Find(role => User.IsInRole(role)) == null) continue;
+                                    }
+
                                     <li>
                                         <a class="dropdown-item" asp-controller="@dropdownItem.Controller" asp-action="@dropdownItem.Action">@dropdownItem.Label</a>
                                     </li>

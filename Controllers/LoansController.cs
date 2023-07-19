@@ -7,9 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Churn.Data;
 using Churn.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Churn.Controllers
 {
+
+    [Authorize(Roles = "Administrator")]
+
+
     public class LoansController : Controller
     {
         private readonly ApplicationDbContext _context;

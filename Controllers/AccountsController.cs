@@ -7,9 +7,12 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Churn.Controllers
 {
+    [Authorize(Roles = "Administrator")]
+
     public class AccountsController : Controller
     {
         private readonly ApplicationDbContext _context;
