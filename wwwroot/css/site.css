@@ -244,6 +244,11 @@ a {
         text-decoration: none;
     }
 
+    .img-thumbnai {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
     .cta-button::before {
         content: "";
         position: absolute;

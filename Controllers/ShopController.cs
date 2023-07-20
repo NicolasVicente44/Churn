@@ -27,12 +27,15 @@ namespace Churn.Controllers
         }
             
         
-        public async Task<IActionResult> Details ()
+        public async Task<IActionResult> Details (int? id)
         {
-            var departmentWithProducts = await  _context.Products
-                .Include(product => product.CreditCard)
-        }
+            var categoryWithProducts = await _context.Categories
+                .Include(category => category.Products)
+                .FirstOrDefaultAsync(category => category.Id == id);
 
+            return View(categoryWithProducts);
+        }
+        
       
     }
 

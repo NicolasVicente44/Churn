@@ -7,95 +7,90 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Churn.Data;
 using Churn.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Churn.Controllers
 {
-
-    [Authorize(Roles = "Administrator")]
-
-
-    public class LoansController : Controller
+    public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public LoansController(ApplicationDbContext context)
+        public CategoriesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Loans
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return _context.Loans != null ? 
-                          View(await _context.Loans.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Loans'  is null.");
+              return _context.Categories != null ? 
+                          View(await _context.Categories.OrderBy(category => category.Name).ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
         }
 
-        // GET: Loans/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Loans == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var loan = await _context.Loans
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (loan == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(loan);
+            return View(category);
         }
 
-        // GET: Loans/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Loans/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InterestRate,LoanAmount,LoanTermMonths,Collateral,Id,Name,Description")] Loan loan)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Icon")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(loan);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(loan);
+            return View(category);
         }
 
-        // GET: Loans/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Loans == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var loan = await _context.Loans.FindAsync(id);
-            if (loan == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(loan);
+            return View(category);
         }
 
-        // POST: Loans/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InterestRate,LoanAmount,LoanTermMonths,Collateral,Id,Name,Description")] Loan loan)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Icon")] Category category)
         {
-            if (id != loan.Id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -104,12 +99,12 @@ namespace Churn.Controllers
             {
                 try
                 {
-                    _context.Update(loan);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LoanExists(loan.Id))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -120,49 +115,49 @@ namespace Churn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(loan);
+            return View(category);
         }
 
-        // GET: Loans/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Loans == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var loan = await _context.Loans
+            var category = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (loan == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(loan);
+            return View(category);
         }
 
-        // POST: Loans/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Loans == null)
+            if (_context.Categories == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Loans'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
             }
-            var loan = await _context.Loans.FindAsync(id);
-            if (loan != null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category != null)
             {
-                _context.Loans.Remove(loan);
+                _context.Categories.Remove(category);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LoanExists(int id)
+        private bool CategoryExists(int id)
         {
-          return (_context.Loans?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Churn.Migrations
 {
-    public partial class iniitalcreate : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,40 +49,18 @@ namespace Churn.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageFileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MinimumBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Account_InterestRate = table.Column<double>(type: "float", nullable: true),
-                    MaximumWithdrawalLimit = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    CreditCard_InterestRate = table.Column<double>(type: "float", nullable: true),
-                    MinimumPaymentAmount = table.Column<double>(type: "float", nullable: true),
-                    AnnualFee = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    BalanceTransferAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    InvestmentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MinimumInvestmentAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    ExpectedReturnRate = table.Column<double>(type: "float", nullable: true),
-                    InvestmentTerm = table.Column<int>(type: "int", nullable: true),
-                    Loan_InterestRate = table.Column<double>(type: "float", nullable: true),
-                    LoanAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    LoanTermMonths = table.Column<int>(type: "int", nullable: true),
-                    Collateral = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InterestRate = table.Column<double>(type: "float", nullable: true),
-                    MortgageAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    MortgageTermYears = table.Column<int>(type: "int", nullable: true),
-                    DownPayment = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,29 +189,27 @@ namespace Churn.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItems",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CartId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InterestRate = table.Column<double>(type: "float", nullable: false),
+                    TermLength = table.Column<double>(type: "float", nullable: false),
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Limit = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    AnnualFees = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItems", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CartItems_Carts_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Carts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CartItems_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -272,6 +248,34 @@ namespace Churn.Migrations
                         column: x => x.CartId1,
                         principalTable: "Carts",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CartId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Carts_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -344,6 +348,11 @@ namespace Churn.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -377,6 +386,9 @@ namespace Churn.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
