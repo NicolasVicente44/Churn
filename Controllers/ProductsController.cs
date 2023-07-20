@@ -110,7 +110,6 @@ namespace Churn.Controllers
             catch (Exception ex)
             {
                 // Log the exception
-                // You can use any logging mechanism here, such as Debug.WriteLine, ILogger, or a logging library.
                 // For simplicity, I'm using Debug.WriteLine to output the exception message to the console.
                 Debug.WriteLine("Exception occurred during file upload: " + ex.Message);
                 throw; // Rethrow the exception to handle it further up the call stack if needed.
