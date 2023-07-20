@@ -25,5 +25,15 @@ namespace Churn.Controllers
 
             return View(products);
         }
+            
+        
+        public async Task<IActionResult> Details ()
+        {
+            var departmentWithProducts = await  _context.Products
+                .Include(product => product.CreditCard)
+        }
+
+      
     }
+
 }
