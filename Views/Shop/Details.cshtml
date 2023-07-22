@@ -8,7 +8,8 @@
 <h1>@ViewData["Title"]</h1>
 
 
-<table class="table">
+
+<table id="productTable" class="table">
     <thead>
         <tr>
             <th>
@@ -39,45 +40,83 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Products) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InterestRate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TermLength)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Photo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Limit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnualFees)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                <form asp-action="AddToCart">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <input type="hidden" name="productId" value="@item.Id">
-                        <input type="hidden" name="quantity" value="1">
-                        <input type="submit" value="AddToCart" class="btn btn-primary">
-                    }
-                </form>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterestRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TermLength)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Photo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Limit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualFees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    <form asp-action="AddToCart">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <input type="hidden" name="productId" value="@item.Id">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="submit" value="AddToCart" class="btn btn-primary">
+                        }
+                    </form>
 
-                <a asp-action="ProductDetails" asp-route-id="@item.Id">View Product</a>
-            </td>
-        </tr>
-}
+                    <a asp-action="ProductDetails" asp-route-id="@item.Id">View Product</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "language": {
+                    "searchPlaceholder": "Search @Model.Name products..." 
+                }
+            });
+        });
+    </script>
+
+
+}
+
+
+<style>
+    
+    .dataTables_filter input {
+        
+        width: 300px; 
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+        .dataTables_filter input::placeholder {
+            color: #999;
+        }
+
+ s
+</style>
