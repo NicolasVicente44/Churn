@@ -12,7 +12,7 @@
                 if (!string.IsNullOrEmpty(userEmail))
                 {
                     userEmail = userEmail.Split('@')[0]; 
-                    userEmail = char.ToUpper(userEmail[0]) + userEmail.Substring(1); // Capitalize first letter
+                    userEmail = char.ToUpper(userEmail[0]) + userEmail.Substring(1); 
                 }
             }
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @userEmail!</a>
