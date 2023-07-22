@@ -19,8 +19,8 @@ namespace Churn.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _context.Products
-                .OrderBy(department => department.Name)
+            var products = await _context.Categories
+                .OrderBy(category => category.Name)
                 .ToListAsync();
 
             return View(products);
@@ -34,6 +34,16 @@ namespace Churn.Controllers
                 .FirstOrDefaultAsync(category => category.Id == id);
 
             return View(categoryWithProducts);
+        }
+
+
+        public async Task<IActionResult> ProductDetails(int? id)
+        {
+            var product = await _context.Products
+                .FirstOrDefaultAsync(product => product.Id == id);
+                
+               
+            return View(product);
         }
         
       
