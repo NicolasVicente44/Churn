@@ -1,6 +1,8 @@
 html {
-    font-size: 14px;
+    font-size: 18px;
 }
+
+
 
 @media (min-width: 768px) {
     html {
@@ -25,9 +27,12 @@ html {
     margin-right: 10px;
 }
 
+
+
 .nav-link {
     text-decoration: none;
     transition: color 0.3s ease;
+
 }
 
 #homeLinks {
@@ -51,6 +56,8 @@ html {
 }
 
 /* Styles for the dropdown menus */
+
+
 .navbar-nav .nav-item.dropdown .dropdown-menu {
     border: #808080 1px solid;
     border-radius: 0.4em;
@@ -68,11 +75,6 @@ html {
 
 a {
     color: black;
-}
-
-
-.nav-link:hover {
-    color: lightgray;
 }
 
 
@@ -332,13 +334,6 @@ a {
     margin-top: 4em;
 }
 
-#contact-header {
-    display: flex;
-    align-items: center;
-    margin: 1em 1em;
-    justify-content: center
-
-}
 
 
 
@@ -445,6 +440,14 @@ a {
     margin: 0 auto;
 }
 
+.nav-link {
+    color: black !important;
+   
+}
+
+.nav-link:hover {
+    color: #808080 !important;
+}
 
 
 /* CRUD tables styling */
@@ -464,4 +467,146 @@ a {
 .table-data {
     padding: 2em;
     background: red;
+}
+
+/*shop category styles*/
+/* Custom styles for the category card container */
+.category-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(400px, 1fr)); 
+    gap: 20px;
+    justify-items: center;
+    margin-top: 100px;
+    margin-bottom: 100px
+}
+
+/* Custom styles for the category card */
+.category-card {
+    width: 100%;
+    max-width: 400px;
+    height: 180px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.category-card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.category-card-text {
+    margin-bottom: 15px;
+}
+
+.category-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.page-title {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .category-card-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    }
+}
+
+
+/*product list styles shop*/
+#productTable {
+    margin-bottom: 100px;
+}
+
+
+
+
+
+
+/*product details styling*/
+/* Center the h1 title */
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 32px;
+    color: #333;
+}
+
+/* Style the product detail container */
+.product-detail-container {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start;
+    margin-top: 40px;
+    flex-wrap: wrap; 
+    margin-bottom: 100px;
+}
+
+/* Style the product photo */
+
+
+/* Style the product info */
+.product-info {
+    max-width: 50%;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px 40px;
+    font-size: 18px;
+    color: #333;
+}
+
+dt {
+    font-weight: bold;
+}
+
+/* Add some background and border styles */
+.product-info{
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 4px;
+        
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add a border around the product photo */
+.product-photo {
+    border: 1px solid #ddd;
+}
+
+/* Add some spacing between rows */
+dd {
+    margin-bottom: 10px;
+}
+
+/* Styles for responsive layouts */
+@media (max-width: 768px) {
+    .product-detail-container {
+        flex-direction: column;
+    }
+
+    .product-info, .product-photo {
+        max-width: 100%;
+       
+    }
 }

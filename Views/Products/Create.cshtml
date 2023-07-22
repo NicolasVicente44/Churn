@@ -5,65 +5,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<style>
+    .container-center {
+        max-width: 75%;
+        margin: 0 auto;
+    }
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InterestRate" class="control-label"></label>
-                <input asp-for="InterestRate" class="form-control" />
-                <span asp-validation-for="InterestRate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TermLength" class="control-label"></label>
-                <input asp-for="TermLength" class="form-control" />
-                <span asp-validation-for="TermLength" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Photo" class="control-label"></label>
-                <input type="file" asp-for="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Limit" class="control-label"></label>
-                <input asp-for="Limit" class="form-control" />
-                <span asp-validation-for="Limit" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AnnualFees" class="control-label"></label>
-                <select asp-for="AnnualFees" class="form-control" asp-items="Html.GetEnumSelectList<Churn.Models.Product.ProductAnnualFees>()"></select>
-                <span asp-validation-for="AnnualFees" class="text-danger"></span>
-            </div>
+    /* Add spacing to the form */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+    /* Change the color of the Create button */
+    .btn-create {
+        background-color: #49beb7;
+        border-color: #49beb7;
+    }
+</style>
+
+<div class="container container-center">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center">Create</h1>
+
+            <h4 class="text-center">Product</h4>
+            <hr />
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="InterestRate" class="control-label"></label>
+                    <input asp-for="InterestRate" class="form-control" />
+                    <span asp-validation-for="InterestRate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TermLength" class="control-label"></label>
+                    <input asp-for="TermLength" class="form-control" />
+                    <span asp-validation-for="TermLength" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Photo" class="control-label"></label>
+                    <input type="file" asp-for="Photo" class="form-control" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Limit" class="control-label"></label>
+                    <input asp-for="Limit" class="form-control" />
+                    <span asp-validation-for="Limit" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnnualFees" class="control-label"></label>
+                    <select asp-for="AnnualFees" class="form-control" asp-items="Html.GetEnumSelectList<Churn.Models.Product.ProductAnnualFees>()"></select>
+                    <span asp-validation-for="AnnualFees" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center" style="margin-top: 1em;">
+                    <input type="submit" value="Create" class="btn btn-primary btn-create" />
+                </div>
+            </form>
+            <div class="text-center">
+                <a asp-action="Index">Back to List</a>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

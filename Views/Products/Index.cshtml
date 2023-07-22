@@ -5,12 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Include the necessary CSS for DataTables -->
+<link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
+
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table" id="productTable">
     <thead>
         <tr>
             <th>
@@ -41,42 +44,56 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InterestRate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TermLength)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterestRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TermLength)
+                </td>
+                <td>
                     @{
                         var photoPath = "/images/products" + item.Photo;
                     }
 
                     <img class="img-fluid img-thumbnail" src="@photoPath">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Limit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnualFees)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Limit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualFees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable({
+                "language": {
+                    "searchPlaceholder": "Search products..."
+                }
+            });
+        });
+    </script>
+}

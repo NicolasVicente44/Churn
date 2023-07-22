@@ -71,11 +71,8 @@ namespace Churn.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception
-                    // You can use any logging mechanism here, such as Debug.WriteLine, ILogger, or a logging library.
-                    // For simplicity, I'm using Debug.WriteLine to output the exception message to the console.
                     Debug.WriteLine("Exception occurred during product creation: " + ex.Message);
-                    throw; // Rethrow the exception to handle it further up the call stack if needed.
+                    throw;
                 }
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", product.CategoryId);
@@ -89,11 +86,8 @@ namespace Churn.Controllers
                 // GTFO ASAP principle
                 if (photo != null)
                 {
-                    // get the temp location
-                    var filePath = Path.GetTempFileName();
-
                     // create unique names so as not to overwrite existing photos
-                    var fileName = Guid.NewGuid() + "-" + photo.FileName;
+                    var fileName = Guid.NewGuid() + "-" + Path.GetFileName(photo.FileName);
 
                     // set the destination dynamically
                     var uploadPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot", "images", "products", fileName);
@@ -110,7 +104,6 @@ namespace Churn.Controllers
             catch (Exception ex)
             {
                 // Log the exception
-                // For simplicity, I'm using Debug.WriteLine to output the exception message to the console.
                 Debug.WriteLine("Exception occurred during file upload: " + ex.Message);
                 throw; // Rethrow the exception to handle it further up the call stack if needed.
             }

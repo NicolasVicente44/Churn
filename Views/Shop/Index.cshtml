@@ -1,38 +1,23 @@
 ﻿@model IEnumerable<Churn.Models.Category>
 
 @{
-    ViewData["Title"] = "Shop By Categories";
+    ViewData["Title"] = "Shop By Category";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="page-title">
+    <h1>@ViewData["Title"]</h1>
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="category-card-container">
+    @foreach (var item in Model)
+    {
+        <div class="category-card">
+            <div class="category-card-body">
+                <h5 class="category-card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                <p class="category-card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark">Details</a>
+            </div>
+        </div>
+    }
+</div>

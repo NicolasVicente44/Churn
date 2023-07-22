@@ -58,7 +58,7 @@
                             <div class="text-center">
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary my-2" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img style="max-width: 20px" src="/Images/google.png">Register With Google</button>
+                                    <button type="submit" class="btn btn-outline-dark my-2" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img style="max-width: 20px; margin-right: 1em;" src="/Images/google.png">Register With Google</button>
                                 }
                             </div>
                         </form>
