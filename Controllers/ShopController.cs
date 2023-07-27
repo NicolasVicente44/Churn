@@ -2,6 +2,7 @@
 using Churn.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -152,6 +153,33 @@ namespace Churn.Controllers
             return NotFound();
         }
 
+
+
+
+        [Authorize]
+        public async Task<IActionResult> Checkout()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var cart = await _context.Carts
+                .Include(cart => cart.User)
+                .Include(cart => cart.CartItems)
+                .ThenInclude(cartItem => cartItem.Product)
+                .FirstOrDefaultAsync(cart => cart.UserId == userId && cart.Active == true);
+
+            var order = new Order
+            {
+                UserId = userId,
+                Cart = cart,
+                Total = ((decimal)(cart.CartItems.Sum(cartItem => (cartItem.Price * cartItem.Quantity)))),
+                ShippinAddress = "",
+                PaymentMethod = PaymentMethods.VISA
+            };
+
+            ViewData["PaymentMethods"] = new SelectList(Enum.GetValues(typeof(PaymentMethods)));
+
+            return View(order);
+        }
     }
 
 }
