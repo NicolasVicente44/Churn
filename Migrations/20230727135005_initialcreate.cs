@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Churn.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -175,7 +175,8 @@ namespace Churn.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -201,7 +202,8 @@ namespace Churn.Migrations
                     TermLength = table.Column<double>(type: "float", nullable: false),
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Limit = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    AnnualFees = table.Column<int>(type: "int", nullable: false)
+                    AnnualFees = table.Column<int>(type: "int", nullable: false),
+                    AnnualFee = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

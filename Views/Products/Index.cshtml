@@ -38,6 +38,9 @@
                 @Html.DisplayNameFor(model => model.AnnualFees)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.AnnualFee)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
             <th></th>
@@ -71,6 +74,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AnnualFees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualFee)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category.Name)

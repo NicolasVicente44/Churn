@@ -116,7 +116,13 @@ namespace Churn.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-
+                    // Check if the user is authenticated with Google
+                    var googleLoginInfo = await _signInManager.GetExternalLoginInfoAsync("Google");
+                    if (googleLoginInfo != null)
+                    {
+                        // Assign the "Customer" role to the user
+                        await _userManager.AddToRoleAsync(user, "Customer");
+                    }
                     //ASSIGNS DEFAULT ROLE OF CUSTOMER TO NEW USER REGISTRATIONS 
                     await _userManager.AddToRoleAsync(user, "Customer");
 

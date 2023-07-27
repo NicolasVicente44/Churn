@@ -11,7 +11,6 @@ namespace Churn.Models
 
         public enum ProductAnnualFees
         {
-            None,        
             Low,          
             Standard,     
             Premium      
@@ -49,6 +48,11 @@ namespace Churn.Models
         [Required()]
 
         public ProductAnnualFees AnnualFees { get; set; }
+
+        [Required()]
+
+        [Display(Name = "Annual Fee (Paid at Checkout)")]
+        public double AnnualFee { get; set; }
 
         public Category? Category { get; set; } //parent reference
 

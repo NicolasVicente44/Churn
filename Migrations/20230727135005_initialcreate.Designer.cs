@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Churn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230720155157_images")]
-    partial class images
+    [Migration("20230727135005_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,9 @@ namespace Churn.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -147,6 +150,9 @@ namespace Churn.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("AnnualFee")
+                        .HasColumnType("float");
 
                     b.Property<int>("AnnualFees")
                         .HasColumnType("int");

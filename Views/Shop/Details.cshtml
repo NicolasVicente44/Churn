@@ -68,14 +68,16 @@
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    <form asp-action="AddToCart">
-                        @if (User.Identity.IsAuthenticated)
-                        {
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-action="AddToCart">
+
                             <input type="hidden" name="productId" value="@item.Id">
                             <input type="hidden" name="quantity" value="1">
-                            <input type="submit" value="AddToCart" class="btn btn-outline-secondary">
-                        }
-                    </form>
+                            <input type  ="submit" value="Quick Add" class="btn btn-outline-secondary">
+
+                        </form>
+                    }
 
                     <a class="btn btn-sm btn-outline-info" asp-action="ProductDetails" asp-route-id="@item.Id">View Product</a>
                 </td>

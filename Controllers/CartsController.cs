@@ -7,13 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Churn.Data;
 using Churn.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Churn.Controllers
 {
-
-    [Authorize(Roles = "Administrator")]
-
     public class CartsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,9 +22,8 @@ namespace Churn.Controllers
         // GET: Carts
         public async Task<IActionResult> Index()
         {
-              return _context.Carts != null ? 
-                          View(await _context.Carts.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Carts'  is null.");
+            var applicationDbContext = _context.Carts.Include(c => c.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Carts/Details/5
@@ -40,6 +35,7 @@ namespace Churn.Controllers
             }
 
             var cart = await _context.Carts
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cart == null)
             {
@@ -52,6 +48,7 @@ namespace Churn.Controllers
         // GET: Carts/Create
         public IActionResult Create()
         {
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -60,7 +57,7 @@ namespace Churn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId")] Cart cart)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Active")] Cart cart)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +65,7 @@ namespace Churn.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", cart.UserId);
             return View(cart);
         }
 
@@ -84,6 +82,7 @@ namespace Churn.Controllers
             {
                 return NotFound();
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", cart.UserId);
             return View(cart);
         }
 
@@ -92,7 +91,7 @@ namespace Churn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId")] Cart cart)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Active")] Cart cart)
         {
             if (id != cart.Id)
             {
@@ -119,6 +118,7 @@ namespace Churn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", cart.UserId);
             return View(cart);
         }
 
@@ -131,6 +131,7 @@ namespace Churn.Controllers
             }
 
             var cart = await _context.Carts
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cart == null)
             {

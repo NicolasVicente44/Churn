@@ -67,6 +67,11 @@
                     <span asp-validation-for="Limit" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="AnnualFee" class="control-label"></label>
+                    <input asp-for="AnnualFee" class="form-control" />
+                    <span asp-validation-for="AnnualFee" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="AnnualFees" class="control-label"></label>
                     <select asp-for="AnnualFees" class="form-control" asp-items="Html.GetEnumSelectList<Churn.Models.Product.ProductAnnualFees>()"></select>
                     <span asp-validation-for="AnnualFees" class="text-danger"></span>

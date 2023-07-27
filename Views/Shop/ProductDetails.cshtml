@@ -29,16 +29,35 @@
             <dt>@Html.DisplayNameFor(model => model.Limit)</dt>
             <dd>@Html.DisplayFor(model => model.Limit)</dd>
 
-            <dt>@Html.DisplayNameFor(model => model.AnnualFees)</dt>
-            <dd>@Html.DisplayFor(model => model.AnnualFees)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AnnualFee)</dt>
+            <dd>@Html.DisplayFor(model => model.AnnualFee)</dd>
 
             <dt>@Html.DisplayNameFor(model => model.Category)</dt>
             <dd>@Html.DisplayFor(model => model.Category.Name)</dd>
         </dl>
 
         <div class="text-center">
-            <!-- Center the button using Bootstrap class -->
-            <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddToCart">
+
+                    <input type="hidden" name="productId" value="@Model.Id">
+
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Quantity</span>
+                        </div>
+
+                        <input class="form-control" type="number" name="quantity" min="1" step="1" value="1">
+                        <div class="input-group-append">
+
+                            <input type="submit" value="Add to Cart" class="btn btn-outline-secondary">
+                        </div>
+                    </div>
+
+
+                </form>
+            }            <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
         </div>
 
     </div>
