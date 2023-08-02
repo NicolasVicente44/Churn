@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Churn.Models.Order>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Site Wide Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table id="ordersTable" class="table">
     <thead>
         <tr>
             <th>
@@ -64,3 +64,17 @@
 }
     </tbody>
 </table>
+
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ordersTable').DataTable({
+                "language": {
+                    "searchPlaceholder": "Search orders..."
+                }
+            });
+        });
+    </script>
+}

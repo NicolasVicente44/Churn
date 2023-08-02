@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Churn.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categories List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!-- Include the necessary CSS for DataTables -->
 <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
