@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Churn.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class iniitalcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -203,7 +203,7 @@ namespace Churn.Migrations
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Limit = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     AnnualFees = table.Column<int>(type: "int", nullable: false),
-                    AnnualFee = table.Column<double>(type: "float", nullable: false)
+                    AnnualFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -225,7 +225,7 @@ namespace Churn.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CartId = table.Column<int>(type: "int", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ShippinAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShippingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentReceived = table.Column<bool>(type: "bit", nullable: false),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
                     CartId1 = table.Column<int>(type: "int", nullable: true)

@@ -52,7 +52,7 @@ namespace Churn.Models
         [Required()]
 
         [Display(Name = "Annual Fee (Paid at Checkout)")]
-        public double AnnualFee { get; set; }
+        public decimal AnnualFee { get; set; }
 
         public Category? Category { get; set; } //parent reference
 

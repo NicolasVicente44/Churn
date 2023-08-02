@@ -67,7 +67,7 @@ namespace Churn.Controllers
         // POST: Orders/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,CartId,Total,ShippinAddress,PaymentReceived,PaymentMethod")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,UserId,CartId,Total,ShippingAddress,PaymentReceived,PaymentMethod")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -122,7 +122,7 @@ namespace Churn.Controllers
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CartId,Total,ShippinAddress,PaymentReceived,PaymentMethod")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,CartId,Total,ShippingAddress,PaymentReceived,PaymentMethod")] Order order)
         {
             if (id != order.Id)
             {

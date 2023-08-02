@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Churn.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230727135005_initialcreate")]
-    partial class initialcreate
+    [Migration("20230801224123_iniitalcreate")]
+    partial class iniitalcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,7 +119,7 @@ namespace Churn.Migrations
                     b.Property<bool>("PaymentReceived")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ShippinAddress")
+                    b.Property<string>("ShippingAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -151,8 +151,8 @@ namespace Churn.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("AnnualFee")
-                        .HasColumnType("float");
+                    b.Property<decimal>("AnnualFee")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("AnnualFees")
                         .HasColumnType("int");
