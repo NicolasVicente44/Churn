@@ -22,9 +22,8 @@
         <div class="col-md-8">
             <h1 class="text-center">@ViewData["Title"]</h1>
 
-
             <hr />
-            <form asp-action="Edit">
+            <form asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
@@ -54,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Photo" class="control-label"></label>
-                    <input asp-for="Photo" class="form-control" />
+                    <input type="file" asp-for="Photo" class="form-control" />
                     <span asp-validation-for="Photo" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -67,13 +66,12 @@
                     <select asp-for="AnnualFees" class="form-control" asp-items="Html.GetEnumSelectList<Churn.Models.Product.ProductAnnualFees>()"></select>
                     <span asp-validation-for="AnnualFees" class="text-danger"></span>
                 </div>
-
                 <div class="form-group">
                     <label asp-for="AnnualFee" class="control-label"></label>
                     <input asp-for="AnnualFee" class="form-control" />
                     <span asp-validation-for="AnnualFee" class="text-danger"></span>
                 </div>
-                <div class="form-group text-center" style="margin-top: 1em; ">
+                <div class="form-group text-center" style="margin-top: 1em;">
                     <input style="background-color: #49beb7; color: #fff;" type="submit" value="Save" class="btn" />
                 </div>
             </form>

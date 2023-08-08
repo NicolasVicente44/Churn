@@ -57,10 +57,11 @@ namespace Churn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryId,Name,Description,InterestRate,TermLength,Photo,Limit,AnnualFees,AnnualFee")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,CategoryId,Name,Description,InterestRate,TermLength,Limit,AnnualFees,AnnualFee")] Product product, IFormFile? Photo)
         {
             if (ModelState.IsValid)
             {
+                product.Photo = await UploadPhoto(Photo);
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -158,6 +159,30 @@ namespace Churn.Controllers
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<string> UploadPhoto(IFormFile Photo)
+        {
+            if(Photo != null)
+            {
+               try
+                {
+                    //Path.GetTempFileName();
+                
+                    var fileName = Guid.NewGuid() + "-" + Photo.FileName;
+                    var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\images\\products\\" + fileName;
+
+                    using var stream = new FileStream(uploadPath, FileMode.Create);
+                    await Photo.CopyToAsync(stream);
+
+                    return fileName;
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+
+            return null;
         }
 
         private bool ProductExists(int id)

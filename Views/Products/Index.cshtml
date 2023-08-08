@@ -63,10 +63,10 @@
                 </td>
                 <td>
                     @{
-                        var photoPath = "/images/products" + item.Photo;
+                        var photoPath = "\\images\\products\\" + item.Photo;
                     }
 
-                    <img class="img-fluid img-thumbnail" src="@photoPath">
+                    <img class="img-fluid img-thumbnail" src="@photoPath" style="width: 100px; height: 100px;">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Limit)

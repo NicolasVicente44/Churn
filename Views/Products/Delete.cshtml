@@ -11,10 +11,17 @@
         margin: 0 auto;
     }
 
-    /* Add spacing to the form */
     .form-group {
         margin-bottom: 1.5rem;
+
     }
+
+    .product-image {
+        height: 250px;
+        width: 250px;
+        object-fit: cover;
+    }
+
 </style>
 
 <div class="container container-center">
@@ -25,6 +32,11 @@
             <h3 class="text-center">Are you sure you want to delete @Model.Name?</h3>
             <div>
                 <hr />
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <img class="img-fluid img-thumbnail product-image" src="~/images/products/@Model.Photo">
+                    </div>
+                </div>
                 <dl class="row">
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Name)
@@ -50,12 +62,7 @@
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.TermLength)
                     </dd>
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.Photo)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.Photo)
-                    </dd>
+                  
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Limit)
                     </dt>

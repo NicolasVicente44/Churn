@@ -1,29 +1,43 @@
 ﻿@model Churn.Models.Product
 
 @{
-    ViewData["Title"] = Model.Name + " Details";
+    ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
-    .container-center {
-        max-width: 75%;
-        margin: 0 auto;
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Add spacing to the form */
-    .form-group {
-        margin-bottom: 1.5rem;
+    .product-image {
+        height: 250px;
+        width: 250px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* Adjust the layout */
+    .row .col-sm-2 {
+        font-weight: bold;
     }
 </style>
 
-<div class="container container-center">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="text-center">@ViewData["Title"]</h1>
+            <h1 class="text-center">Delete</h1>
 
-            <div>
+            <div class="card">
+                <h3 class="text-center">Are you sure you want to delete @Model.Name?</h3>
                 <hr />
+                <div class="text-center">
+                    <img class="img-fluid img-thumbnail product-image" src="~/images/products/@Model.Photo">
+                </div>
                 <dl class="row">
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Name)
@@ -50,12 +64,6 @@
                         @Html.DisplayFor(model => model.TermLength)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.Photo)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.Photo)
-                    </dd>
-                    <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Limit)
                     </dt>
                     <dd class="col-sm-10">
@@ -80,9 +88,14 @@
                         @Html.DisplayFor(model => model.Category.Name)
                     </dd>
                 </dl>
-            </div>
-            <div class="text-center">
-                <a asp-action="Index">Back to List</a>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group text-center" style="margin-top: 1em;">
+                        <input type="submit" value="Delete" class="btn btn-danger" /> |
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
