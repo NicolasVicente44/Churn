@@ -43,6 +43,12 @@ html {
     color: black;
 }
 
+#shopBtn {
+    margin-top: 0.5em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+
 
 
 .navbar-brand {

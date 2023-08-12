@@ -5,82 +5,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+    }
+
+    .centered-content {
+        max-width: 70vw;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
-<table id="productTable" class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Interest Rate
-            </th>
-            <th>
-                Term Length
-            </th>
-            <th>
-                Photo
-            </th>
-            <th>
-                Limit
-            </th>
-            <th>
-                Annual Fees
-            </th>
-            <th>
-                Category
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Products)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InterestRate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TermLength)
-                </td>
-                <td>
-                    <img src="~/images/products/@item.Photo" alt="@item.Name" style="width: 100px; height: 100px;" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Limit)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AnnualFees)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <form asp-action="AddToCart">
-                            <input type="hidden" name="productId" value="@item.Id">
-                            <input type="hidden" name="quantity" value="1">
-                            <input type="submit" value="Quick Add" class="btn btn-outline-secondary">
-                        </form>
-                    }
-
-                    <a class="btn btn-sm btn-outline-info" asp-action="ProductDetails" asp-route-id="@item.Id">View Product</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="centered-container">
+    <div class="centered-content">
+        <table id="productTable" class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Interest Rate</th>
+                    <th>Term Length</th>
+                    <th>Photo</th>
+                    <th>Limit</th>
+                    <th>Annual Fees</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.InterestRate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TermLength)</td>
+                        <td><img src="~/images/products/@item.Photo" alt="@item.Name" style="width: 100px; height: 100px;" /></td>
+                        <td>@Html.DisplayFor(modelItem => item.Limit)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AnnualFees)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form asp-action="AddToCart">
+                                    <input type="hidden" name="productId" value="@item.Id">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="submit" value="Quick Add" class="btn btn-outline-secondary">
+                                </form>
+                            }
+                            <a id="shopBtn" class="btn btn-sm btn-outline-info" asp-action="ProductDetails" asp-route-id="@item.Id">View Product</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 @section Scripts {
     <script>

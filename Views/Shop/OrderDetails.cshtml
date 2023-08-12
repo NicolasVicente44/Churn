@@ -5,45 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vw; 
+    }
+
+    .centered-content {
+        max-width: 80vw;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-button {
+        margin-top: 20px;
+    }
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
-<div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var cartItem in Model.Cart.CartItems)
-            {
-                var subtotal = cartItem.Quantity * cartItem.Price;
+<div class="centered-container">
+    <div class="centered-content">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>@cartItem.Product.Name</td>
-                    <td>@cartItem.Quantity</td>
-                    <td>@cartItem.Price</td>
-                    <td style="text-align: right;">@subtotal</td>
-                    <td>
-                    </td>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
                 </tr>
-            }
-        </tbody>
+            </thead>
 
-        <tfoot>
-            <tr>
-                <th>Total:</th>
-                <td colspan="3" style="text-align: right;">@Model.Total</td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
+            <tbody>
+                @foreach (var cartItem in Model.Cart.CartItems)
+                {
+                    var subtotal = cartItem.Quantity * cartItem.Price;
+                    <tr>
+                        <td>@cartItem.Product.Name</td>
+                        <td>@cartItem.Quantity</td>
+                        <td>@cartItem.Price</td>
+                        <td style="text-align: right;">@subtotal</td>
+                    </tr>
+                }
+            </tbody>
 
-<div>
-    <a asp-action="Orders">Back to List</a>
+            <tfoot>
+                <tr>
+                    <th>Total:</th>
+                    <td colspan="3" style="text-align: right;">@Model.Total</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="back-button">
+            <a class="btn btn-secondary" asp-action="Orders">Back to List</a>
+        </div>
+    </div>
 </div>

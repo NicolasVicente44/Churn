@@ -5,63 +5,89 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .centered-content {
+        max-width: 80vw;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f7f7f7;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+</style>
+
 <h1>@ViewData["Title"]</h1>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Total)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShippingAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentReceived)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaymentMethod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cart)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Total)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ShippingAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PaymentReceived)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PaymentMethod)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cart.Id)
-                </td>
-                <td>
-                    <a asp-action="OrderDetails" asp-route-id="@item.Id">Details</a> |
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="centered-container">
+    <div class="centered-content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Total</th>
+                    <th>Shipping Address</th>
+                    <th>Payment Received</th>
+                    <th>Payment Method</th>
+                    <th>Cart ID</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Total)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ShippingAddress)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymentReceived)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymentMethod)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Cart.Id)</td>
+                        <td>
+                            <a asp-action="OrderDetails" asp-route-id="@item.Id">Details</a> |
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "language": {
+                    "searchPlaceholder": "Search orders..."
+                }
+            });
+        });
+    </script>
+}
+
+<style>
+    .dataTables_filter input {
+        width: 300px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .dataTables_filter input::placeholder {
+        color: #999;
+    }
+</style>
