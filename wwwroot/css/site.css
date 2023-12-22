@@ -1,3 +1,5 @@
+
+
 html {
     font-size: 18px;
 }
@@ -10,6 +12,9 @@ html {
     }
 }
 
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 
 /* Styles for the shared navigation menu component */

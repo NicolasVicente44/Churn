@@ -1,4 +1,6 @@
 ﻿@model Churn.Models.Cart
+@using System.Web;
+@using Microsoft.AspNetCore.Mvc
 
 @{
     if (Model == null || Model.CartItems == null || Model.CartItems.Count == 0)

@@ -1,79 +1,57 @@
 ﻿@model Churn.Models.Category
 
+
 @{
-    ViewData["Title"] = "Shop products for " + Model.Name;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Model.Products == null || !Model.Products.Any() || string.IsNullOrEmpty(Model.Name))
+    {
+        <h1>No Products in this category are currently available.</h1>
+    }
+    else
+    {
+        ViewData["Title"] = "Shop products for " + Model.Name;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
-
-<style>
-    .centered-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-       
-    }
-
-    .centered-content {
-        max-width: 70vw;
-        text-align: center;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f7f7f7;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
-</style>
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="centered-container">
-    <div class="centered-content">
-        <table id="productTable" class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Interest Rate</th>
-                    <th>Term Length</th>
-                    <th>Photo</th>
-                    <th>Limit</th>
-                    <th>Annual Fees</th>
-                    <th>Category</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Products)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                        <td>@Html.DisplayFor(modelItem => item.InterestRate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.TermLength)</td>
-                        <td><img src="~/images/products/@item.Photo" alt="@item.Name" style="width: 100px; height: 100px;" /></td>
-                        <td>@Html.DisplayFor(modelItem => item.Limit)</td>
-                        <td>@Html.DisplayFor(modelItem => item.AnnualFees)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
-                        <td>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <form asp-action="AddToCart">
-                                    <input type="hidden" name="productId" value="@item.Id">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <input type="submit" value="Quick Add" class="btn btn-outline-secondary">
-                                </form>
-                            }
-                            <a id="shopBtn" class="btn btn-sm btn-outline-info" asp-action="ProductDetails" asp-route-id="@item.Id">View Product</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+<div class="card-container row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center">
+    @foreach (var item in Model.Products)
+    {
+        <div class="col mb-4">
+            <div class="card h-100 p-3">
+                <img src="~/images/products/@item.Photo" class="card-img-top" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Interest Rate: @item.InterestRate</li>
+                        <li class="list-group-item">Term Length: @item.TermLength</li>
+                        <li class="list-group-item">Limit: @item.Limit</li>
+                        <li class="list-group-item">Annual Fees: @item.AnnualFees</li>
+                        <li class="list-group-item">Category: @item.Category.Name</li>
+                    </ul>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-action="AddToCart">
+                            <input type="hidden" name="productId" value="@item.Id">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-outline-secondary">Quick Add</button>
+                        </form>
+                    }
+                    <a href="@Url.Action("ProductDetails", new { id = item.Id })" class="btn btn-outline-info ml-2">View Product</a>
+                </div>
+
+            </div>
+        </div>
+    }
 </div>
 
 @section Scripts {
     <script>
+        // Your DataTable initialization script
         $(document).ready(function () {
             $('#productTable').DataTable({
                 "paging": true,
@@ -87,17 +65,3 @@
         });
     </script>
 }
-
-<style>
-    .dataTables_filter input {
-        width: 300px;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-        .dataTables_filter input::placeholder {
-            color: #999;
-        }
-</style>

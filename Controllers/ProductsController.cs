@@ -57,7 +57,7 @@ namespace Churn.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CategoryId,Name,Description,InterestRate,TermLength,Limit,AnnualFees,AnnualFee")] Product product, IFormFile? Photo)
+        public async Task<IActionResult> Create([Bind("Id,CategoryId,Name,Description,InterestRate,TermLength,Limit,AnnualFees,AnnualFee")] Product product, IFormFile Photo)
         {
             if (ModelState.IsValid)
             {
@@ -163,23 +163,42 @@ namespace Churn.Controllers
 
         private async Task<string> UploadPhoto(IFormFile Photo)
         {
-            if(Photo != null)
+            if (Photo != null)
             {
-               try
+                try
                 {
-                    //Path.GetTempFileName();
-                
                     var fileName = Guid.NewGuid() + "-" + Photo.FileName;
-                    var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\images\\products\\" + fileName;
+                    var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "products");
 
-                    using var stream = new FileStream(uploadPath, FileMode.Create);
-                    await Photo.CopyToAsync(stream);
+                    if (!Directory.Exists(uploadDirectory))
+                    {
+                        Directory.CreateDirectory(uploadDirectory);
+                    }
 
+                    var uploadPath = Path.Combine(uploadDirectory, fileName);
+
+                    using (var stream = new FileStream(uploadPath, FileMode.Create))
+                    {
+                        await Photo.CopyToAsync(stream);
+                    }
+
+                    Console.WriteLine($"File uploaded successfully to: {uploadPath}");
                     return fileName;
-                } catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
                 }
+                catch (IOException ex)
+                {
+                    Console.WriteLine($"Error during file I/O: {ex.Message}");
+                    // Handle specific file I/O exception
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"General error during file upload: {ex.Message}");
+                    // Handle other exceptions
+                }
+            }
+            else
+            {
+                Console.WriteLine("No file provided for upload.");
             }
 
             return null;

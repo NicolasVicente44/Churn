@@ -1,78 +1,69 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-    
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Churn.styles.css" asp-append-version="true" />
-    <style>
-        hr {
-            border: 1px solid #ccc;
-            margin: 20px 0;
-        }
-    </style>
 
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/Churn.styles.css" asp-append-version="true" />
+<style>
+    hr {
+        border: 1px solid #ccc;
+        margin: 20px 0;
+    }
+</style>
 
-
-
-    <div id="home-page-wrapper">
-        <div id="home-first-wrapper">
-            <div id="index-first-subwrapper">
-                <img src="/Images/churn-logo.png" width="400px" height="300px" />
-                <h2>Connecting you to your financial future</h2>
-                <a id="index-learn" href="/Home/About">Learn About Churn</a>
-            </div>
-        </div>
-
-
-        <div>
-            <div class="hero-section">
-                <h2>Compare Financial Products</h2>
-                <p>At Churn, we aggregate financial products from banks, credit unions, and other institutions to help you make informed decisions, expand your capital, and save you thousands of dollars.</p>
-                <a href="Identity/Account/Register" class="cta-button">Get Started</a>
-            </div>
-
-
-
-            <div>
-                <hr class="home-hr">
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Boost Your Credit and Expand Your Capital</h2>
-                        <p class="lead">Explore a diverse selection of financial products, including accounts, credit cards, loans, and more. Clearly compare and contrast benefits and features from a variety of lenders for products that best suit you.</p>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 300px; height: 260px;" src="~/Images/business-credit-score.png">
-                    </div>
-                </div>
-                <hr class="home-hr">
-                <div class="row featurette">
-                    <div class="col-md-7 order-md-2">
-                        <h2 class="featurette-heading">Easy Comparison</h2>
-                        <p class="lead">Effortlessly compare the features, rates, and terms of various financial products to find the best fit for your needs. Shop from different providers all in one place just a few clicks away.</p>
-                    </div>
-                    <div class="col-md-5 order-md-1">
-                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 300px; height: 260px; margin-bottom: 1em;" src="~/Images/compare.png">
-                    </div>
-                </div>
-                <hr class="home-hr">
-                <div class="row featurette">
-                    <div class="col-md-7">
-                        <h2 class="featurette-heading">Transparent Information</h2>
-                        <p class="lead">We provide clear and concise details about each product, ensuring transparency and empowering your decision-making. No need to directly talk to any lenders or visit any banks, get what you need to know without the hassle.</p>
-                    </div>
-                    <div class="col-md-5">
-                        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="500x500" style="width: 300px; height: 260px;" src="~/Images/shopping-cart.png">
-                    </div>
-                </div>
-                <hr class="home-hr">
-            </div>
+<div id="home-page-wrapper">
+    <div id="home-first-wrapper">
+        <div id="index-first-subwrapper">
+            <img src="~/Images/churn-logo.png" width="400" height="300" alt="Churn Logo" />
+            <h2>Connecting you to your financial future</h2>
+            <a id="index-learn" href="/Home/About">Learn About Churn</a>
         </div>
     </div>
 
+    <div>
+        <div class="hero-section">
+            <h2>Compare Financial Products</h2>
+            <p>At Churn, we aggregate financial products from banks, credit unions, and other institutions to help you make informed decisions, expand your capital, and save you thousands of dollars.</p>
+            <a href="Identity/Account/Register" class="cta-button">Get Started</a>
+        </div>
 
+        <div>
+            <hr class="home-hr">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Boost Your Credit and Expand Your Capital</h2>
+                    <p class="lead">Explore a diverse selection of financial products, including accounts, credit cards, loans, and more. Clearly compare and contrast benefits and features from a variety of lenders for products that best suit you.</p>
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-fluid mx-auto" alt="Business Credit Score" style="width: 300px; height: 260px;" src="~/Images/business-credit-score.png">
+                </div>
+            </div>
+            <hr class="home-hr">
+            <div class="row featurette">
+                <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading">Easy Comparison</h2>
+                    <p class="lead">Effortlessly compare the features, rates, and terms of various financial products to find the best fit for your needs. Shop from different providers all in one place just a few clicks away.</p>
+                </div>
+                <div class="col-md-5 order-md-1">
+                    <img class="featurette-image img-fluid mx-auto" alt="Comparison" style="width: 300px; height: 260px; margin-bottom: 1em;" src="~/Images/compare.png">
+                </div>
+            </div>
+            <hr class="home-hr">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Transparent Information</h2>
+                    <p class="lead">We provide clear and concise details about each product, ensuring transparency and empowering your decision-making. No need to directly talk to any lenders or visit any banks, get what you need to know without the hassle.</p>
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-fluid mx-auto" alt="Shopping Cart" style="width: 300px; height: 260px;" src="~/Images/shopping-cart.png">
+                </div>
+            </div>
+            <hr class="home-hr">
+        </div>
+    </div>
+</div>
 
-
-    <div class="container">
+<div class="container">
     <div class="testimonial-section">
         <h2>What Our Users Say</h2>
         <div id="carouselExample" class="carousel slide" data-ride="carousel">
@@ -119,12 +110,9 @@
             </a>
         </div>
     </div>
+</div>
 
-    </div>
-
-
-    @section Scripts {
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    }
-
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+}
